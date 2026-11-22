@@ -145,7 +145,7 @@ from osdagbridge.core.reports.report_utils import _tex, _render_value, get_girde
 
 if TYPE_CHECKING:
     pass
-def ch5_design_checks(checks_data, bridge) -> str:
+def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
     """Chapter 5 — Design Checks.
 
     Parameters
@@ -1065,6 +1065,23 @@ Fatigue Shear Resistance, $Q_r$ & IRC 22 Table 8 ($\phi d$, $N_{sc}$) & """
     ]
     t522_content = "\n".join(_t522)
 
+    # -- Utilization ratio charts for Section 5.5 ---------------------------
+    # Read the UR column back out of the rows above (row label, UR text) and
+    # draw the charts into chart_dir (the temporary image folder of the report).
+    _ur_charts_tex = ""
+    if chart_dir:
+        try:
+            from osdagbridge.core.reports.charts import ur_charts_tex
+            _ur_pairs = []
+            for _row in _t522:
+                if r"\multicolumn" in _row:      # "design to be added" message rows
+                    continue
+                _cells = _row.split(" & ")
+                _ur_pairs.append((_cells[0], _cells[-1].split(r"\\[6pt]")[0]))
+            _ur_charts_tex = ur_charts_tex(_ur_pairs, chart_dir)
+        except Exception:
+            _ur_charts_tex = ""
+
     return r"""
 \chapter{Design Checks}
 
@@ -1556,5 +1573,4 @@ End diaphragms at the supports transfer transverse loads to the bearings, restra
 """ + t522_content + r"""
 \end{longtable}
 \noindent\textit{Note: UR = Demand / Capacity. All values $\leq 1.0$ indicate passing checks. The governing check for each component is highlighted in the individual design check sections above.}
-
-"""
+""" + _ur_charts_tex + "\n"

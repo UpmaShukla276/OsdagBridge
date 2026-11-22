@@ -34,6 +34,26 @@ LONGTABLE_SPACE_AFTER_PT = 6   # gap below a longtable (\LTpost)
 # lines remain on the current page. This keeps a table's first rows together.
 NEEDSPACE_BASELINES = 5
 
+# ---------------------------------------------------------------------------
+# Charts (matplotlib figures embedded in the report)
+# ---------------------------------------------------------------------------
+CHART_DPI = 200                    # resolution of the saved PNG
+CHART_WIDTH_IN = 6.5               # figure width in inches
+CHART_HEIGHT_IN = 3.2              # figure height in inches
+CHART_FONT_SIZE = 9                # axis labels, ticks and legend
+CHART_TITLE_SIZE = 10              # chart title
+CHART_VALUE_LABEL_SIZE = 8         # numbers printed above the bars
+CHART_EMBED_WIDTH = r"0.85\textwidth"   # width of the chart in the PDF
+
+CHART_COLOR_PASS = "#" + COLOR_OSDAG_GREEN   # bars with UR <= 1.0
+CHART_COLOR_FAIL = "#C0392B"                 # bars with UR > 1.0
+CHART_COLOR_SECOND = "#4A6FA5"               # second series in grouped charts
+CHART_COLOR_THIRD = "#E0A030"                # third series / quantity charts
+CHART_COLOR_LIMIT = "red"                    # the UR = 1.0 limit line
+CHART_LIMIT_STYLE = "--"                     # dashed
+CHART_LIMIT_WIDTH = 1.3
+UR_LIMIT = 1.0                               # utilization ratio limit
+
 
 # ---------------------------------------------------------------------------
 # LaTeX fragments built from the constants above
