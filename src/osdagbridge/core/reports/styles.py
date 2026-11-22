@@ -92,3 +92,21 @@ def colors_tex():
 
 def line_stretch_tex():
     return r"\setstretch{" + f"{LINE_STRETCH}" + r"}"
+
+# ---------------------------------------------------------------------------
+# Per-chapter table padding (used by the chapter files)
+# ---------------------------------------------------------------------------
+TABCOLSEP_COMPACT_PT = 4       # compact tables (chapters 2 and 5)
+TABCOLSEP_TIGHT_PT = 3         # tight tables (chapter 4 maximum-demand table)
+TABCOLSEP_SUMMARY_PT = 3.5     # summary tables (chapters 7 and 8)
+ARRAYSTRETCH_TIGHT = 1.25      # row height multiplier for the chapter 4 table
+
+
+def tabcolsep_tex(pt):
+    """LaTeX line that sets the horizontal cell padding to `pt` points."""
+    return r"\setlength{\tabcolsep}{" + f"{pt}pt" + r"}"
+
+
+def arraystretch_tex(factor):
+    """LaTeX line that sets the row height multiplier."""
+    return r"\renewcommand{\arraystretch}{" + f"{factor}" + r"}"

@@ -1,4 +1,5 @@
 from osdagbridge.core.reports.charts import quantity_charts_tex
+from osdagbridge.core.reports import styles
 
 
 def ch7_quantities(input_dict, chart_dir=None):
@@ -9,7 +10,7 @@ def ch7_quantities(input_dict, chart_dir=None):
 \noindent\textbf{Table 7.1  Bill of Materials (Steel, Concrete, and Reinforcement Quantities)}
 
 \begingroup
-\setlength{\tabcolsep}{3.5pt}
+""" + styles.tabcolsep_tex(styles.TABCOLSEP_SUMMARY_PT) + r"""
 \begin{longtable}{|C{1.0cm}|L{3.8cm}|C{2.6cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|}
 \hline
 \textbf{S.N.} & \textbf{Item Description} & \textbf{Volume} & \textbf{Quantity} & \textbf{Total Volume} & \textbf{Weight (MT)} & \textbf{Total Weight (MT)} \\
