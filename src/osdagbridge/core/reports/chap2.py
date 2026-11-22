@@ -115,7 +115,7 @@ This section documents all inputs provided to OsdagBridge. User-provided inputs 
 \textnormal{Shade Temp. Max / Min (IRC 6)} & """ + (_render_value(input_dict,'shade_temp_max','')) + r""" °C / """ + (_render_value(input_dict,'shade_temp_min','')) + r""" °C \\
 \hline
 \end{tabular}
-\vspace{0.4cm}
+\vspace{\osdagGapCm}
 \end{table}
 
 \begin{table}[H]
@@ -139,7 +139,7 @@ This section documents all inputs provided to OsdagBridge. User-provided inputs 
 \hline
 \end{tabular}
 \end{table}
-\vspace{0.4cm}
+\vspace{\osdagGapCm}
 
 \begin{table}[H]
 \caption{\textbf{Material Selection}}
@@ -158,7 +158,7 @@ This section documents all inputs provided to OsdagBridge. User-provided inputs 
 \hline
 \end{tabular}
 \end{table}
-\vspace{0.4cm}
+\vspace{\osdagGapCm}
 
 \newpage
 \section{Additional Inputs}
@@ -301,10 +301,10 @@ def _girder_tables(input_dict, n_girders):
     return (r"""
 \newpage
 
-\vspace{0.4em}
+\vspace{\osdagGapTight}
 \noindent
             
-\vspace{4pt}
+\vspace{\osdagGapS}
 \begin{longtable}{|L{2.2cm}|L{1.8cm}|p{3.8cm}|p{3.8cm}|p{3.8cm}|}
 \caption{\textbf{Girder General Information}}
 \hline
@@ -316,7 +316,7 @@ def _girder_tables(input_dict, n_girders):
 
 \vspace{0.6em}
 
-\vspace{4pt}
+\vspace{\osdagGapS}
 \begin{longtable}{|L{1.8cm}|L{2.3cm}|L{1.8cm}|p{4.8cm}|p{4.8cm}|}
 \caption{\textbf{Girder Section Dimensions}}
 \hline
@@ -328,7 +328,7 @@ def _girder_tables(input_dict, n_girders):
 
 \vspace{0.6em}
 
-\vspace{4pt}
+\vspace{\osdagGapS}
 \begin{longtable}{|L{1.4cm}|p{2.2cm}|p{2.2cm}|p{3.0cm}|p{2.4cm}|p{2.2cm}|}
 \caption{\textbf{Girder Restraint and Stiffener Details}}\\
 \hline
@@ -384,7 +384,7 @@ def _bracing_tables(input_dict, n_girders):
     return (r"""
 \newpage
 
-\vspace{0.4em}
+\vspace{\osdagGapTight}
 """ + styles.tabcolsep_tex(styles.TABCOLSEP_COMPACT_PT) + r"""
 \setlength\LTleft{0pt}
 \setlength\LTright{\fill}
@@ -398,7 +398,7 @@ def _bracing_tables(input_dict, n_girders):
 + cb_rows
 + r"""\end{longtable}
 
-\vspace{0.4em}
+\vspace{\osdagGapTight}
 \noindent
 """ + styles.tabcolsep_tex(styles.TABCOLSEP_COMPACT_PT) + r"""
 \setlength\LTleft{0pt}
@@ -423,7 +423,7 @@ def _shear_connector_table(input_dict, output_dict=None):
 
 \vspace{2.2em}
 
-\vspace{0.4em}
+\vspace{\osdagGapTight}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Shear Connector Details}}
 \hline
@@ -451,7 +451,7 @@ def _safety_factors_table(input_dict):
 \vspace{0.3em}
 \noindent\textit{Note: All values are per IRC 22 Table 1 unless user-modified.}
 
-\vspace{0.4em}
+\vspace{\osdagGapTight}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Partial Safety Factors}}
 \hline

@@ -347,7 +347,7 @@ def toc_section():
 
 % TOC styling using titletoc
 \titlecontents{chapter}[1.5em]
-  {\normalfont\vspace{2pt}}
+  {\normalfont\vspace{\osdagGapXS}}
   {\contentslabel{1.5em}}
   {\hspace*{-1.5em}}
   {\hfill\contentspage}
@@ -587,8 +587,8 @@ class ReportDataBridge:
             if val is not None:
                 ur = float(val)
                 if ur <= 1.0:
-                    return r"\textcolor{black}{PASS}"
-                return r"\textcolor{red}{FAIL}"
+                    return r"\textcolor{osdagText}{PASS}"
+                return r"\textcolor{osdagFail}{FAIL}"
         except (TypeError, ValueError):
             pass
         return ""

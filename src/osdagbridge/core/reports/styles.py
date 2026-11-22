@@ -86,8 +86,39 @@ def needspace_tex():
     ])
 
 
+# ---------------------------------------------------------------------------
+# Spacing and colours used by the chapter files
+# ---------------------------------------------------------------------------
+COLOR_FAIL = "FF0000"          # FAIL status text
+COLOR_TEXT = "000000"          # normal body text
+
+SPACE_XS = "2pt"               # \osdagGapXS
+SPACE_S = "4pt"                # \osdagGapS
+SPACE_M = "6pt"                # \osdagGapM
+SPACE_TIGHT = "0.4em"          # \osdagGapTight
+SPACE_L = "1em"                # \osdagGapL  (gap between blocks)
+SPACE_CM = "0.4cm"             # \osdagGapCm
+
+_SPACING_MACROS = {
+    "osdagGapXS": SPACE_XS,
+    "osdagGapS": SPACE_S,
+    "osdagGapM": SPACE_M,
+    "osdagGapTight": SPACE_TIGHT,
+    "osdagGapL": SPACE_L,
+    "osdagGapCm": SPACE_CM,
+}
+
+
 def colors_tex():
-    return r"\definecolor{osdagGreen}{HTML}{" + COLOR_OSDAG_GREEN + r"}"
+    """Named colours and spacing macros, defined once in the preamble."""
+    lines = [
+        r"\definecolor{osdagGreen}{HTML}{" + COLOR_OSDAG_GREEN + r"}",
+        r"\definecolor{osdagFail}{HTML}{" + COLOR_FAIL + r"}",
+        r"\definecolor{osdagText}{HTML}{" + COLOR_TEXT + r"}",
+    ]
+    for name, value in _SPACING_MACROS.items():
+        lines.append(r"\newcommand{" + "\\" + name + r"}{" + value + r"}")
+    return "\n".join(lines)
 
 
 def line_stretch_tex():

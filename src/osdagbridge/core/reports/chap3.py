@@ -282,7 +282,7 @@ def ch3_loads(input_dict):
 
 This section summarizes all loads applied to the bridge and the load combinations considered for analysis and design.
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Dead Load -- Self Weight}}
 \hline
@@ -296,7 +296,7 @@ This section summarizes all loads applied to the bridge and the load combination
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Dead Load for Surfacing (DW)}}
 \hline
@@ -310,7 +310,7 @@ This section summarizes all loads applied to the bridge and the load combination
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{4.5cm}|C{3.2cm}|C{3.6cm}|C{4.2cm}|}
 \caption{\textbf{Live Loads (LL) --- Vehicles}}
 \hline
@@ -320,7 +320,7 @@ This section summarizes all loads applied to the bridge and the load combination
 \end{longtable}
 \noindent\textit{Note: Impact factor = 1 + IM (IRC 6 Cl. 208). Braking load (IRC 6 Cl. 211.2) is considered for each selected vehicle; Class SV is included only if selected under Braking Load. Braking force acts at """ + ecc_str + r""" m above the top of the deck. Centrifugal force applies only to curved alignments.}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|C{6.0cm}|C{4.0cm}|}
 \caption{\textbf{Live Loads (LL) --- Footway}}
 \hline
@@ -334,7 +334,7 @@ Footway Pressure & """ + _tex(fp_pressure_str) + r""" & kN/m\textsuperscript{2} 
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Wind Load (WL) --- per IRC 6}}
 \hline
@@ -358,7 +358,7 @@ Footway Pressure & """ + _tex(fp_pressure_str) + r""" & kN/m\textsuperscript{2} 
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Earthquake Load (EL) --- per IRC 6}}
 \hline
@@ -384,7 +384,7 @@ Footway Pressure & """ + _tex(fp_pressure_str) + r""" & kN/m\textsuperscript{2} 
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|L{5.5cm}|p{10.0cm}|}
 \caption{\textbf{Temperature Load (TL) --- per IRC 6}}
 \hline
@@ -400,7 +400,7 @@ Footway Pressure & """ + _tex(fp_pressure_str) + r""" & kN/m\textsuperscript{2} 
 \hline
 \end{longtable}
 
-\vspace{1em}
+\vspace{\osdagGapL}
 \begin{longtable}{|C{4.0cm}|p{11.5cm}|}
 \caption{\textbf{Load Combinations}}\\
 \hline
