@@ -83,6 +83,7 @@ def needspace_tex():
     return "\n".join([
         r"\BeforeBeginEnvironment{table}" + guard,
         r"\BeforeBeginEnvironment{longtable}" + guard,
+        CLINE_NOBREAK_TEX,
     ])
 
 
@@ -141,3 +142,34 @@ def tabcolsep_tex(pt):
 def arraystretch_tex(factor):
     """LaTeX line that sets the row height multiplier."""
     return r"\renewcommand{\arraystretch}{" + f"{factor}" + r"}"
+
+# ---------------------------------------------------------------------------
+# Keep a girder's rows together (page-break rule for grouped tables)
+# ---------------------------------------------------------------------------
+ROW_END_TEX = r"\\[6pt]"            # normal row end used by the grouped tables
+ROW_END_NOBREAK_TEX = r"\\*[6pt]"   # same, but forbids a page break after the row
+KEEP_GROUP_MAX_ROWS = 16            # longer blocks are left free to break
+
+# No page break right after a \cline rule (needs etoolbox, loaded by the preamble)
+CLINE_NOBREAK_TEX = "\n".join([
+    r"\makeatletter",
+    r"\patchcmd{\@cline}{\vskip -\arrayrulewidth}{\penalty\@M\vskip -\arrayrulewidth}{}"
+    r"{\PackageWarning{osdag}{cline no-break patch failed}}",
+    r"\makeatother",
+])
+
+
+def keep_rows_together(group_tex):
+    """Forbid a page break inside one block of table rows.
+
+    Every row end except the last one in the block becomes the no-break
+    version, so the whole block moves to the next page together instead of
+    splitting (for example G5 Live Load on one page and G5 Total Load on the
+    next). Blocks with fewer than 2 or more than KEEP_GROUP_MAX_ROWS rows are
+    returned unchanged.
+    """
+    parts = group_tex.split(ROW_END_TEX)
+    n_rows = len(parts) - 1
+    if n_rows < 2 or n_rows > KEEP_GROUP_MAX_ROWS:
+        return group_tex
+    return ROW_END_NOBREAK_TEX.join(parts[:-1]) + ROW_END_TEX + parts[-1]

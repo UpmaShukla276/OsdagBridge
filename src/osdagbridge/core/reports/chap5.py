@@ -198,7 +198,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & \textnormal{Depth to Plastic Neutral Axis (mm)} & """ + _render_value(bridge.output_dict, KEY_SD_PNA_DEPTH) + r""" \\[6pt]
 \hline"""
         )
-    t51_content = "\n".join(t51_rows)
+    t51_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t51_rows)
 
     # Generate Table 5.2 rows
     t52_rows = []
@@ -211,7 +211,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Overall Section & --- & --- & """ + _render_value(bridge.output_dict, KEY_SD_SECTION_CLASS) + r""" \\[6pt]
 \hline"""
         )
-    t52_content = "\n".join(t52_rows)
+    t52_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t52_rows)
 
     # Generate Table 5.3 rows
     # Flexure UR is stored as a percent (cat_urs × 100); show as a ratio (÷100,
@@ -233,7 +233,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Utilization Ratio, $M_u / M_d$ & $M_u / M_d$ & """ + _flex_ur_str + r""" & """ + _flex_status + r""" \\[6pt]
 \hline"""
         )
-    t53_content = "\n".join(t53_rows)
+    t53_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t53_rows)
 
     # Generate Table 5.4 rows
     # Shear UR is stored as a percent (cat_urs × 100); show as a ratio (÷100,
@@ -265,7 +265,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Utilization Ratio, $V_u / V_d$ & $V_u / V_d$ & """ + _shear_ur_str + r""" & """ + _shear_status + r""" \\[6pt]
 \hline"""
         )
-    t54_content = "\n".join(t54_rows)
+    t54_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t54_rows)
 
     # Generate Table 5.5 rows
     # Interaction DCRs use the engine bands: PASS <0.90, WARN <1.00, FAIL ≥1.00.
@@ -305,7 +305,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Interaction Check: $N_u/N_{Rd} + M_u/M_{dv} \leq 1.0$ & """ + _mn_cond + r""" & """ + _mn_val + r""" & """ + _mn_status + r""" \\[6pt]
 \hline"""
         )
-    t55_content = "\n".join(t55_rows)
+    t55_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t55_rows)
 
     # Generate Table 5.6 rows
     # LTB UR stored as percent → show ratio (2 dp); engine bands via _interaction_status.
@@ -330,7 +330,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & $M_u \leq M_b$ & $M_u / M_b$ & """ + _ltb_ur_str + r""" & """ + _ltb_status + r""" \\[6pt]
 \hline"""
         )
-    t56_content = "\n".join(t56_rows)
+    t56_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t56_rows)
 
     # Generate Table 5.7 rows
     t57_rows = []
@@ -349,7 +349,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & \textnormal{Longitudinal Stiffeners} & """ + _render_value(bridge.output_dict, KEY_SD_STIFF_LONG) + r""" \\[6pt]
 \hline"""
         )
-    t57_content = "\n".join(t57_rows)
+    t57_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t57_rows)
 
     # Generate table - intermediate stiffener checks (IS 800 CL. 8.7.1.2)
     # Status: PASS when Provided ≥ Required.
@@ -370,7 +370,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Buckling Resistance, $F_{qd} \geq F_q$ & """ + _render_value(bridge.output_dict, KEY_SD_IS_FQ, " kN") + r""" & """ + _render_value(bridge.output_dict, KEY_SD_IS_FQD, " kN") + r""" & """ + _fqd_status + r""" \\[6pt]
 \hline"""
         )
-    t58_content = "\n".join(t58_rows)
+    t58_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t58_rows)
 
     # (Intermediate Stiffener Checks) is a verification table — it only
     # has data when the user supplied stiffener sizes (Design Type = Custom). In
@@ -423,7 +423,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
  & Column Buckling Resistance & """ + _cb_req + r""" & """ + _cb_prov + r""" & """ + _cb_st + r""" \\[6pt]
 \hline"""
         )
-    t59_content = "\n".join(t59_rows)
+    t59_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t59_rows)
 
     # ── Table 5.10: Serviceability — Deflection Checks (IRC 22 Cl. 604.3.2) ──────
     # Allowable limits: span-dependent, same for all girders, from output_dict.
@@ -480,7 +480,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
             + _defl_status(_total_mm, _allow_total_mm) + r""" \\[6pt]
 \hline"""
         )
-    t510_content = "\n".join(t510_rows)
+    t510_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t510_rows)
 
     # Generate Table 5.11 rows — SLS steel stress limitation (IRC 22 Cl. 604.3.1).
     # Concrete & rebar deck stresses are deck-global and belong with the deck
@@ -513,7 +513,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
             + _steel_status + r""" \\[6pt]
 \hline"""
         )
-    t511_content = "\n".join(t511_rows)
+    t511_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t511_rows)
 
     # Generate Table 5.12 rows — per-girder fatigue assessment (IRC 22 Cl. 605),
     # mirroring the Generate Results dialog: one row per girder showing the
@@ -539,7 +539,7 @@ def ch5_design_checks(checks_data, bridge, chart_dir=None) -> str:
             + _fat_status(_g.get("status")) + r""" \\[6pt]
 \hline"""
         )
-    t512_content = "\n".join(t512_rows)
+    t512_content = "\n".join(styles.keep_rows_together(_grp) for _grp in t512_rows)
 
     # Generate Table 5.13 rows — per-girder design summary, mirroring the Generate
     # Results dialog's resolve_design_results_summary: one row per girder showing
