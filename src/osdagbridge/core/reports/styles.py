@@ -34,6 +34,10 @@ LONGTABLE_SPACE_AFTER_PT = 6   # gap below a longtable (\LTpost)
 # lines remain on the current page. This keeps a table's first rows together.
 NEEDSPACE_BASELINES = 5
 
+# A section heading that is followed by a table moves to the next page
+# unless this many text lines fit below it (stops orphaned headings).
+SECTION_NEEDSPACE_BASELINES = 10
+
 # ---------------------------------------------------------------------------
 # Charts (matplotlib figures embedded in the report)
 # ---------------------------------------------------------------------------
@@ -82,7 +86,6 @@ def needspace_tex():
     guard = r"{\needspace{" + f"{NEEDSPACE_BASELINES}" + r"\baselineskip}}"
     return "\n".join([
         r"\BeforeBeginEnvironment{table}" + guard,
-        r"\BeforeBeginEnvironment{longtable}" + guard,
         CLINE_NOBREAK_TEX,
     ])
 
@@ -119,6 +122,8 @@ def colors_tex():
     ]
     for name, value in _SPACING_MACROS.items():
         lines.append(r"\newcommand{" + "\\" + name + r"}{" + value + r"}")
+    lines.append(r"\newcommand{\osdagSectionGuard}{\needspace{"
+                 + f"{SECTION_NEEDSPACE_BASELINES}" + r"\baselineskip}}")
     return "\n".join(lines)
 
 
@@ -173,3 +178,44 @@ def keep_rows_together(group_tex):
     if n_rows < 2 or n_rows > KEEP_GROUP_MAX_ROWS:
         return group_tex
     return ROW_END_NOBREAK_TEX.join(parts[:-1]) + ROW_END_TEX + parts[-1]
+
+
+# ---------------------------------------------------------------------------
+# Header / footer (fancyhdr) theme
+# ---------------------------------------------------------------------------
+FOOTER_LEFT_TEXT = r"Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay"
+FOOTER_RIGHT_TEXT = r"Page \thepage\ of \pageref{LastPage}"
+HEADRULE_WIDTH_PT = 1
+FOOTRULE_WIDTH_PT = 1
+
+
+def header_footer_tex(project, job, date, rev):
+    """All fancyhdr page styles (main, plain, firstpage) in one place."""
+    head = (r"  \fancyhf{}" "\n"
+            r"  \fancyhead[L]{" + project + r" $|$ " + job + "}\n"
+            r"  \fancyhead[R]{" + date + r" $|$ " + rev + "}\n"
+            r"  \fancyfoot[L]{" + FOOTER_LEFT_TEXT + "}\n"
+            r"  \fancyfoot[R]{" + FOOTER_RIGHT_TEXT + "}\n"
+            r"  \renewcommand{\headrule}{\color{osdagGreen}\hrule width\headwidth height "
+            + f"{HEADRULE_WIDTH_PT}pt" + r" \vspace{2pt}}" "\n"
+            r"  \renewcommand{\footrule}{%" "\n"
+            r"    \ifbool{hasSDonPage}{%" "\n"
+            r"      \vspace{-20pt}%" "\n"
+            r"      \hbox to \headwidth{\textcolor{black}{\footnotesize\textit{* Software default value}}\hfil}%" "\n"
+            r"      \vspace{4pt}%" "\n"
+            r"    }{%" "\n"
+            r"      \vspace{-8pt}%" "\n"
+            r"    }%" "\n"
+            r"    \color{osdagGreen}\hrule width\headwidth height "
+            + f"{FOOTRULE_WIDTH_PT}pt" + r" \vspace{6pt}%" "\n"
+            r"  }" "\n")
+    first = (r"  \fancyhf{}" "\n"
+             r"  \renewcommand{\headrulewidth}{0pt}" "\n"
+             r"  \fancyfoot[L]{" + FOOTER_LEFT_TEXT + "}\n"
+             r"  \fancyfoot[R]{" + FOOTER_RIGHT_TEXT + "}\n"
+             r"  \renewcommand{\footrule}{\vspace{-8pt}\color{osdagGreen}\hrule width\headwidth height "
+             + f"{FOOTRULE_WIDTH_PT}pt" + r" \vspace{6pt}}" "\n")
+    return (r"\fancypagestyle{main}{" "\n" + head + "}\n"
+            r"\fancypagestyle{plain}{" "\n" + head + "}\n"
+            r"\fancypagestyle{firstpage}{" "\n" + first + "}\n"
+            r"\pagestyle{main}")

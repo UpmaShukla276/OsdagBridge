@@ -1554,6 +1554,7 @@ End diaphragms at the supports transfer transverse loads to the bearings, restra
 \noindent\textit{Note: Designed per IS 800 Cl. 7 (compression) and Cl. 6 (tension). OsdagBridge cross-bracing module used.}
 
 % ===========================
+\osdagSectionGuard
 \section{Overall Design Check Summary}
 \label{sec:overall-summary}
 % ===========================
